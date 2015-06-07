@@ -71,6 +71,8 @@ while cmd != 'quit':
 			file = open(cmdList[1], 'wb')
 			ftp.retrbinary(('RETR ' + cmdList[1]), writeBinary)
 			file.close()
+		except IOError as e:
+			print('IOError: ' + str(e))
 		except error_perm as e:
 			print(e)
 		else:
@@ -80,8 +82,8 @@ while cmd != 'quit':
 			file = open(cmdList[1], 'rb')
 			ftp.storbinary('STOR ' + cmdList[1], file)
 			file.close()
-		except FileNotFoundError:
-			print(cmdList[1] + ' not found.')
+		except IOError as e:
+			print('IOError: ' + str(e))
 		except error_perm as e:
 			print(e)
 		else:
