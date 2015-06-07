@@ -16,11 +16,20 @@ def writeFileLineByLine(line):
 def writeBinary(data):
 	file.write(data)
 
+def getUserInput(msg):
+	inputString = ''
+	try:
+		inputString = eval("raw_input('" + msg + "')")
+	except (SyntaxError, NameError):
+		inputString = eval("input('" + msg + "')")
+	return inputString
+
 ftp = FTP()
 msg = ''
 connected = False
 while not connected:
-	host = input('Host name (URL): ').strip()
+	# host = getUserInput('Host name (URL): ').strip()
+	host = getUserInput('Host name (URL): ').strip()
 	try:
 		msg = ftp.connect(host)
 	except error_temp as e:
@@ -32,7 +41,7 @@ while not connected:
 		print(msg)
 loggedIn = False
 while not loggedIn:
-	user = input('Username (blank for anonymous): ').strip()
+	user = getUserInput('Username (blank for anonymous): ').strip()
 	password = getpass('Password (blank for anonymous): ').strip()
 	try:
 		msg = ftp.login(user, password)
@@ -43,7 +52,7 @@ while not loggedIn:
 	else:
 		loggedIn = True
 		print(msg)
-cmd = input('Command: ').strip()
+cmd = getUserInput('Command: ').strip()
 while cmd != 'quit':
 	# print ("You typed", cmd)
 	cmdList = cmd.split()
@@ -62,6 +71,6 @@ while cmd != 'quit':
 		ftp.storbinary('STOR ' + cmdList[1], file)
 		file.close()
 		print('Put ' + cmdList[1])
-	cmd = input('Command: ').strip()
+	cmd = getUserInput('Command: ').strip()
 
 print(ftp.quit())
