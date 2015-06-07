@@ -17,7 +17,7 @@ $ mv FTPY/ftpy dir/in/your/PATH
 
 ## Uninstallation
 
-Delete ftpy to uninstall the script. Note that ftpy does not install or create any other files, so uninstallation really does amount to deleting the ftpy script.
+Delete `ftpy` to uninstall the script. Note that FTPY does not install or create any other files, so uninstallation really does amount to deleting the `ftpy` script.
 
 ```
 $ rm ftpy
