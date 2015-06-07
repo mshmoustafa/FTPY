@@ -88,6 +88,42 @@ while cmd != 'quit':
 			print(e)
 		else:
 			print('Put ' + cmdList[1])
+	elif cmdList[0] == 'mkdir':
+		try:
+			print(ftp.mkd(cmdList[1]))
+		except error_perm as e:
+			print(e)
+		else:
+			print('Made new directory: ' + cmdList[1])
+	elif cmdList[0] == 'rmdir':
+		try:
+			print(ftp.rmd(cmdList[1]))
+		except error_perm as e:
+			print(e)
+		else:
+			print('Removed directory: ' + cmdList[1])
+	elif cmdList[0] == 'pwd':
+		try:
+			print(ftp.pwd())
+		except error_perm as e:
+			print(e)
+	elif cmdList[0] == 'mv':
+		try:
+			print(ftp.rename(cmdList[1], cmdList[2]))
+		except error_perm as e:
+			print(e)
+		else:
+			print('Moved ' + cmdList[1] + ' to ' + cmdList[2])
+	elif cmdList[0] == 'rm':
+		try:
+			print(ftp.delete(cmdList[1]))
+		except error_perm as e:
+			print(e)
+		else:
+			print('Deleted ' + cmdList[1])
 	cmd = getUserInput('Command: ').strip()
 
-print(ftp.quit())
+try:
+	print(ftp.quit())
+except:
+	print(ftp.close())
