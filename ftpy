@@ -1,0 +1,67 @@
+#!/usr/local/bin/python
+
+from ftplib import FTP
+from ftplib import error_temp
+from ftplib import error_perm
+from getpass import getpass
+host = ''
+user = ''
+password = ''
+file = None
+
+def writeFileLineByLine(line):
+	file.write(line)
+	file.write('\n')
+
+def writeBinary(data):
+	file.write(data)
+
+ftp = FTP()
+msg = ''
+connected = False
+while not connected:
+	host = input('Host name (URL): ').strip()
+	try:
+		msg = ftp.connect(host)
+	except error_temp as e:
+		print(e)
+	except error_perm as e:
+		print(e)
+	else:
+		connected = True
+		print(msg)
+loggedIn = False
+while not loggedIn:
+	user = input('Username (blank for anonymous): ').strip()
+	password = getpass('Password (blank for anonymous): ').strip()
+	try:
+		msg = ftp.login(user, password)
+	except error_temp as e:
+		print(e)
+	except error_perm as e:
+		print(e)
+	else:
+		loggedIn = True
+		print(msg)
+cmd = input('Command: ').strip()
+while cmd != 'quit':
+	# print ("You typed", cmd)
+	cmdList = cmd.split()
+	# print(str(cmdList))
+	if cmdList[0] == 'ls':
+		print(ftp.dir())
+	elif cmdList[0] == 'cd':
+		print(ftp.cwd(cmdList[1]))
+	elif cmdList[0] == 'get':
+		file = open(cmdList[1], 'wb')
+		ftp.retrbinary(('RETR ' + cmdList[1]), writeBinary)
+		file.close()
+		print('Got ' + cmdList[1])
+	elif cmdList[0] == 'put':
+		file = open(cmdList[1], 'rb')
+		ftp.storbinary('STOR ' + cmdList[1], file)
+		file.close()
+		print('Put ' + cmdList[1])
+	cmd = input('Command: ').strip()
+
+print(ftp.quit())
