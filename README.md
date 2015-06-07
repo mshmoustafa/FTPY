@@ -49,6 +49,10 @@ Once logged in, you can type in any of the usual FTP commands.
 
 `ls` lists the files in the current directory.
 
+```
+Command: ls
+```
+
 #### cd - Change working directory
 
 `cd` changes to another directory:
