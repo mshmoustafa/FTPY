@@ -43,11 +43,13 @@ Once logged in, you can type in any of the usual FTP commands.
 
 ## Commands
 
-### ls - List files in directory
+### Navigation
+
+#### ls - List files in directory
 
 `ls` lists the files in the current directory.
 
-### cd - Change working directory
+#### cd - Change working directory
 
 `cd` changes to another directory:
 
@@ -57,7 +59,15 @@ Command: cd public_html
 
 `cd ..` goes up one directory.
 
-### get - Download a file from the server
+#### pwd - Print the current working directory
+
+```
+Command: pwd
+```
+
+### Transfering Files
+
+#### get - Download a file from the server
 
 Works with binary and ascii files.
 
@@ -67,7 +77,7 @@ Command: get index.html
 
 Note on binary vs. ascii: `get` currently uses the binary transfer mode for all downloads, but I plan on making the script detect common ascii files and use the ascii transfer mode for them.
 
-### put - Upload a file to the server
+#### put - Upload a file to the server
 
 Works with binary and ascii files.
 
@@ -77,7 +87,40 @@ Command: put myimage.png
 
 Note on binary vs. ascii: `put` uses the binary transfer mode for all uploads.
 
-### quit - Close the connection to the server
+### Server Manipulations
+
+#### mv - Move or rename file or directory on server
+
+```
+Command: mv page.html subdirectory/page.html
+Command: mv old_name.html new_name.html
+```
+
+#### rm - Delete file on server
+
+Does not work on directories. See `rmdir`.
+
+```
+Command: rm deleteme.html
+```
+
+#### mkdir - Make a directory on the server
+
+```
+Command: mkdir new_directory
+```
+
+#### rmdir - Delete a directory on the server
+
+The directory must be empty to be deleted.
+
+```
+Command: rmdir empty_dir
+```
+
+### Miscellaneous
+
+#### quit - Close the connection to the server
 
 Nicely closes the connection to the FTP server.
 
