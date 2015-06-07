@@ -2,6 +2,10 @@
 
 A super-simple, no-frills FTP client for the command line written in Python. No `sudo` privileges needed to install or use. Works on *Nix and Windows systems. Currently requires Python 3.
 
+## Beta Disclaimer
+
+This is a very early version of FTPY. As such, there are still uncaught exceptions and potential bugs that occur when using FTPY. So far in my usage, I haven't encountered any bugs but I have seen a few uncaught exceptions. Use at your own risk.
+
 ## Installation
 
 Drop `ftpy` into a directory on your path. One easy way to do this is by cloning the repository and moving the Python script wherever you want it:
@@ -87,4 +91,4 @@ FTPY is licensed with the MIT license. Enjoy.
 
 ## History
 
-One day I was using my ASUS C200 Chromebook and I needed to access my web server using FTP. So I opened up a terminal, typed in `ftp` and hit enter. To my surprise, I got this message: `bash: ftp: command not found`. I looked around for some FTP clients for use with my Chromebook, but I couldn't find any good ones to use. I could have switched over to my Xubuntu chroot using crouton, but I wanted a solution I could use in Chrome OS. So I decided to make my own FTP client using Python's excellent ftplib module. The goal is to make the client very easy to use in almost any environment.
+One day I was using my ASUS C200 Chromebook and I needed to access my web server using FTP. So I opened up a terminal, typed in `ftp` and hit enter. To my surprise, I got this message: `bash: ftp: command not found`. I looked around for some FTP clients for use with my Chromebook, but I couldn't find any good ones to use. I could have switched over to my Xubuntu chroot using [crouton](https://github.com/dnschneid/crouton), but I wanted a solution I could use in Chrome OS. So I decided to make my own FTP client using Python's excellent [ftplib](https://docs.python.org/2/library/ftplib.html) module. The goal is to make the client very easy to use in almost any environment.
