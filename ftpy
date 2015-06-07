@@ -60,17 +60,32 @@ while cmd != 'quit':
 	if cmdList[0] == 'ls':
 		print(ftp.dir())
 	elif cmdList[0] == 'cd':
-		print(ftp.cwd(cmdList[1]))
+		try:
+			msg = ftp.cwd(cmdList[1])
+		except error_perm as e:
+			print(e)
+		else:
+			print(msg)
 	elif cmdList[0] == 'get':
-		file = open(cmdList[1], 'wb')
-		ftp.retrbinary(('RETR ' + cmdList[1]), writeBinary)
-		file.close()
-		print('Got ' + cmdList[1])
+		try:
+			file = open(cmdList[1], 'wb')
+			ftp.retrbinary(('RETR ' + cmdList[1]), writeBinary)
+			file.close()
+		except error_perm as e:
+			print(e)
+		else:
+			print('Got ' + cmdList[1])
 	elif cmdList[0] == 'put':
-		file = open(cmdList[1], 'rb')
-		ftp.storbinary('STOR ' + cmdList[1], file)
-		file.close()
-		print('Put ' + cmdList[1])
+		try:
+			file = open(cmdList[1], 'rb')
+			ftp.storbinary('STOR ' + cmdList[1], file)
+			file.close()
+		except FileNotFoundError:
+			print(cmdList[1] + ' not found.')
+		except error_perm as e:
+			print(e)
+		else:
+			print('Put ' + cmdList[1])
 	cmd = getUserInput('Command: ').strip()
 
 print(ftp.quit())
