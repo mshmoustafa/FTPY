@@ -1,6 +1,6 @@
 # FTPY Beta
 
-A super-simple, no-frills FTP client for the command line written in Python. No `sudo` privileges needed to install or use. Works on *Nix and Windows systems. Currently requires Python 3.
+A super-simple, no-frills FTP client for the command line written in Python. No `sudo` privileges needed to install or use. Works on *Nix and Windows systems and with Python versions 2 and 3.
 
 ## Beta Disclaimer
 
