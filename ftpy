@@ -4,10 +4,12 @@ from ftplib import FTP
 from ftplib import error_temp
 from ftplib import error_perm
 from getpass import getpass
+import os
 host = ''
 user = ''
 password = ''
 file = None
+bindir = os.getcwd()
 
 def writeFileLineByLine(line):
 	file.write(line)
@@ -28,7 +30,6 @@ ftp = FTP()
 msg = ''
 connected = False
 while not connected:
-	# host = getUserInput('Host name (URL): ').strip()
 	host = getUserInput('Host name (URL): ').strip()
 	try:
 		msg = ftp.connect(host)
@@ -54,14 +55,14 @@ while not loggedIn:
 		print(msg)
 cmd = getUserInput('Command: ').strip()
 while cmd != 'quit':
-	# print ("You typed", cmd)
-	cmdList = cmd.split()
-	# print(str(cmdList))
+	cmdList = cmd.split(None, 1)
+	if len(cmdList) > 1:
+		cmdArgs = cmdList[1]
 	if cmdList[0] == 'ls':
 		print(ftp.dir())
 	elif cmdList[0] == 'cd':
 		try:
-			msg = ftp.cwd(cmdList[1])
+			msg = ftp.cwd(cmdArgs)
 		except error_perm as e:
 			print(e)
 		else:
@@ -69,58 +70,59 @@ while cmd != 'quit':
 	elif cmdList[0] == 'get':
 		try:
 			file = open(cmdList[1], 'wb')
-			ftp.retrbinary(('RETR ' + cmdList[1]), writeBinary)
+			ftp.retrbinary(('RETR ' + cmdArgs), writeBinary)
 			file.close()
 		except IOError as e:
 			print('IOError: ' + str(e))
 		except error_perm as e:
 			print(e)
 		else:
-			print('Got ' + cmdList[1])
+			print('Got ' + cmdArgs)
 	elif cmdList[0] == 'put':
 		try:
-			file = open(cmdList[1], 'rb')
-			ftp.storbinary('STOR ' + cmdList[1], file)
+			file = open(cmdArgs, 'rb')
+			ftp.storbinary('STOR ' + cmdArgs, file)
 			file.close()
 		except IOError as e:
 			print('IOError: ' + str(e))
 		except error_perm as e:
 			print(e)
 		else:
-			print('Put ' + cmdList[1])
+			print('Put ' + cmdArgs)
 	elif cmdList[0] == 'mkdir':
 		try:
-			print(ftp.mkd(cmdList[1]))
+			print(ftp.mkd(cmdArgs))
 		except error_perm as e:
 			print(e)
 		else:
-			print('Made new directory: ' + cmdList[1])
+			print('Made new directory: ' + cmdArgs)
 	elif cmdList[0] == 'rmdir':
 		try:
-			print(ftp.rmd(cmdList[1]))
+			print(ftp.rmd(cmdArgs))
 		except error_perm as e:
 			print(e)
 		else:
-			print('Removed directory: ' + cmdList[1])
+			print('Removed directory: ' + cmdArgs)
 	elif cmdList[0] == 'pwd':
 		try:
 			print(ftp.pwd())
 		except error_perm as e:
 			print(e)
 	elif cmdList[0] == 'mv':
+		cmdArgsList = cmdArgs.split()
 		try:
-			print(ftp.rename(cmdList[1], cmdList[2]))
+			print(ftp.rename(cmdArgsList[0], cmdArgsList[1]))
 		except error_perm as e:
 			print(e)
 		else:
-			print('Moved ' + cmdList[1] + ' to ' + cmdList[2])
+			print('Moved ' + cmdArgsList[0] + ' to ' + cmdArgsList[1])
 	elif cmdList[0] == 'rm':
 		try:
-			print(ftp.delete(cmdList[1]))
+			print(ftp.delete(cmdArgs))
 		except error_perm as e:
 			print(e)
 		else:
-			print('Deleted ' + cmdList[1])
+			print('Deleted ' + cmdArgs)
 	cmd = getUserInput('Command: ').strip()
 
 try:
