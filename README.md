@@ -1,6 +1,6 @@
 # FTPY Beta
 
-A super-simple, no-frills FTP client for the command line written in Python. No `sudo` privileges needed to install or use. Works on *Nix and Windows systems and with Python versions 2 and 3.
+A super-simple, no-frills FTP client for the command line written in Python. No `sudo` privileges needed to install or use. Works on *Nix, Mac OS X, and Windows systems and with Python versions 2 and 3.
 
 ## Beta Disclaimer
 
@@ -79,7 +79,7 @@ Works with binary and ascii files.
 Command: get index.html
 ```
 
-Note on binary vs. ascii: `get` currently uses the binary transfer mode for all downloads, but I plan on making the script detect common ascii files and use the ascii transfer mode for them.
+Note on binary vs. ascii: `get` currently uses the binary transfer mode for all downloads.
 
 #### put - Upload a file to the server
 
