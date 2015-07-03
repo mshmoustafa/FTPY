@@ -41,6 +41,8 @@ $ Password (blank for anonymous):
 
 Once logged in, you can type in any of the usual FTP commands.
 
+Note that you must start this script in the same directory as the files that you want to upload.  This is because FTPY does not have 'lcd' and 'lls' commands to work with the current directory.
+
 ## Commands
 
 ### Navigation
