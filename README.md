@@ -31,7 +31,7 @@ Run the script in Python:
 $ python ftpy
 ```
 
-Log into your host, username, and password at the prompts:
+Log into your host by typing in your host URL, username, and password at the prompts:
 
 ```
 $ Host name (URL): myhost.com
