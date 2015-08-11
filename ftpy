@@ -5,6 +5,7 @@ from ftplib import FTP
 from ftplib import error_temp
 from ftplib import error_perm
 from getpass import getpass
+from sys import exit
 import os
 
 # Global Variables
@@ -38,7 +39,10 @@ def getUserInput(msg):
 ftp = FTP()
 connected = False
 while not connected:
-	host = getUserInput('Host name (URL): ').strip()
+	while host.strip() == '':
+		host = getUserInput('Host name (URL): ').strip()
+		if (host == 'quit'):
+			exit(0)
 	try:
 		msg = ftp.connect(host)
 	except error_temp as e:
@@ -63,8 +67,8 @@ while not loggedIn:
 		print(msg)
 
 # Command Loop
-cmd = getUserInput('Command: ').strip()
-while cmd != 'quit':
+while True:
+	cmd = getUserInput('Command: ').strip()
 	# split command by spaces
 	cmdList = cmd.split(None, 1)
 	# if no commands were given, skip the loop
@@ -75,7 +79,9 @@ while cmd != 'quit':
 	if len(cmdList) > 1:
 		cmdArgs = cmdList[1]
 	# parse the command
-	if cmdList[0] == 'ls':
+	if cmdList[0] == 'quit':
+		break;
+	elif cmdList[0] == 'ls':
 		print(ftp.dir())
 	elif cmdList[0] == 'cd':
 		try:
@@ -140,7 +146,6 @@ while cmd != 'quit':
 			print(e)
 		else:
 			print('Deleted ' + cmdArgs)
-	cmd = getUserInput('Command: ').strip()
 
 # Try quitting nicely. If that fails, force quit.
 try:
