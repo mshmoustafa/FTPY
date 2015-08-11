@@ -1,16 +1,21 @@
-#!/usr/local/bin/python
+# FTPY - a simple FTP program
+# Author: Muhammad-Sharif Moustafa
 
 from ftplib import FTP
 from ftplib import error_temp
 from ftplib import error_perm
 from getpass import getpass
 import os
+
+# Global Variables
 host = ''
 user = ''
 password = ''
+msg = ''
 file = None
 bindir = os.getcwd()
 
+# Convenience Functions
 def writeFileLineByLine(line):
 	file.write(line)
 	file.write('\n')
@@ -19,15 +24,18 @@ def writeBinary(data):
 	file.write(data)
 
 def getUserInput(msg):
+# Allows compatibility with Python 2 and 3.
 	inputString = ''
+	# Try the Python 2 way of getting input. If that fails
+	# use the Python 3 way.
 	try:
 		inputString = eval("raw_input('" + msg + "')")
 	except (SyntaxError, NameError):
 		inputString = eval("input('" + msg + "')")
 	return inputString
 
+# Connection and Login Logic
 ftp = FTP()
-msg = ''
 connected = False
 while not connected:
 	host = getUserInput('Host name (URL): ').strip()
@@ -53,11 +61,20 @@ while not loggedIn:
 	else:
 		loggedIn = True
 		print(msg)
+
+# Command Loop
 cmd = getUserInput('Command: ').strip()
 while cmd != 'quit':
+	# split command by spaces
 	cmdList = cmd.split(None, 1)
+	# if no commands were given, skip the loop
+	if len(cmdList) == 0:
+		continue
+	# if there were more than one "words" in the command,
+	# the words after the first one are command arguments.
 	if len(cmdList) > 1:
 		cmdArgs = cmdList[1]
+	# parse the command
 	if cmdList[0] == 'ls':
 		print(ftp.dir())
 	elif cmdList[0] == 'cd':
@@ -125,6 +142,7 @@ while cmd != 'quit':
 			print('Deleted ' + cmdArgs)
 	cmd = getUserInput('Command: ').strip()
 
+# Try quitting nicely. If that fails, force quit.
 try:
 	print(ftp.quit())
 except:
