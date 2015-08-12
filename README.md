@@ -69,7 +69,7 @@ Command: cd public_html
 Command: pwd
 ```
 
-### Transfering Files
+### Transferring Files
 
 #### get - Download a file from the server
 
