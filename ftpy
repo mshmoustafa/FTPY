@@ -9,6 +9,7 @@ from sys import exit
 import os
 
 # Global Variables
+ftp = FTP()
 host = ''
 user = ''
 password = ''
@@ -25,7 +26,6 @@ def writeBinary(data):
 	file.write(data)
 
 def getUserInput(msg):
-# Allows compatibility with Python 2 and 3.
 	inputString = ''
 	# Try the Python 2 way of getting input. If that fails
 	# use the Python 3 way.
@@ -36,7 +36,6 @@ def getUserInput(msg):
 	return inputString
 
 # Connection and Login Logic
-ftp = FTP()
 connected = False
 while not connected:
 	while host.strip() == '':
