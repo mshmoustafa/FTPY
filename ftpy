@@ -101,16 +101,17 @@ while True:
 		else:
 			print('Got ' + cmdArgs)
 	elif cmdList[0] == 'put':
+		filename = os.path.basename(cmdArgs)
 		try:
 			file = open(cmdArgs, 'rb')
-			ftp.storbinary('STOR ' + cmdArgs, file)
+			ftp.storbinary('STOR ' + filename, file)
 			file.close()
 		except IOError as e:
 			print('IOError: ' + str(e))
 		except error_perm as e:
 			print(e)
 		else:
-			print('Put ' + cmdArgs)
+			print('Put ' + filename)
 	elif cmdList[0] == 'mkdir':
 		try:
 			print(ftp.mkd(cmdArgs))
