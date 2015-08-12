@@ -39,7 +39,7 @@ $ Username (blank for anonymous): myusername
 $ Password (blank for anonymous): 
 ```
 
-Once logged in, you can type in any of the usual FTP commands.
+Once logged in, you can type in commands. FTPY attempts to emulate `bash` filesystem commands rather than use standard FTP commands. This means that the command to list the files in a directory is `ls` instead of `list`, the command to change directories is `cd` instead of `cwd`, etc.
 
 ## Commands
 
