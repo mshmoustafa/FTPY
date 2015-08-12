@@ -41,8 +41,6 @@ $ Password (blank for anonymous):
 
 Once logged in, you can type in any of the usual FTP commands.
 
-Note that you must execute this script in the same directory as the files that you want to upload.  This is because FTPY does not have 'lcd' and 'lls' commands to work with the current local directory.
-
 ## Commands
 
 ### Navigation
@@ -85,10 +83,11 @@ Note on binary vs. ascii: `get` uses the binary transfer mode for all downloads.
 
 #### put - Upload a file to the server
 
-Works with binary and ascii files.
+Works with binary and ascii files.  If you are uploading a file outside of the directory where you executed ftpy, you must use the absolute path of the file.
 
 ```
 Command: put myimage.png
+Command: put /Users/username/myimage.png
 ```
 
 Note on binary vs. ascii: `put` uses the binary transfer mode for all uploads.
