@@ -2,6 +2,8 @@
 
 A super-simple, no-frills FTP client for the command line written in Python. No `sudo` privileges needed to install or use. Works on *Nix, Mac OS X, and Windows systems and with Python versions 2 and 3.
 
+![FTPY Screenshot](http://muhammadsharifmoustafa.com/images/landingPage/ftpy-screenshot.png)
+
 ## Beta Disclaimer
 
 This is a very early version of FTPY. As such, there are still uncaught exceptions and potential bugs that occur when using FTPY. So far in my usage, I haven't encountered any bugs but I have seen a few uncaught exceptions. Use at your own risk.
