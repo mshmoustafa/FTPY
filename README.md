@@ -27,7 +27,9 @@ $ rm ftpy
 
 ## Usage
 
-Run the script in Python:
+### Method 1
+
+Run the script:
 
 ```
 $ python ftpy
@@ -40,6 +42,40 @@ $ Host name (URL): myhost.com
 $ Username (blank for anonymous): myusername
 $ Password (blank for anonymous): 
 ```
+
+### Method 2
+
+Run the script and provide the host as an argument:
+
+```
+$ python ftpy myhost.com
+```
+
+Log into your host by typing in your username and password at the prompts:
+
+```
+$ Username (blank for anonymous): myusername
+$ Password (blank for anonymous): 
+```
+
+### Method 3
+
+Run the script and provide the host and username as arguments:
+
+```
+$ python ftpy myhost.com myusername
+```
+
+### Method 4
+
+Run the script and provide the host, username, and password as arguments:
+
+```
+$ python ftpy myhost.com myusername mypassword
+```
+
+Keep in mind the lowered security of entering your password visibly on the command line.
+If any of your credentials are incorrect, the script will display prompts for you to type in your credentials again.
 
 Once logged in, you can type in commands. FTPY attempts to emulate `bash` filesystem commands rather than use standard FTP commands. This means that the command to list the files in a directory is `ls` instead of `list`, the command to change directories is `cd` instead of `cwd`, etc.
 
