@@ -25,6 +25,12 @@ Delete `ftpy` to uninstall the script. Note that FTPY does not install or create
 $ rm ftpy
 ```
 
+Or on Windows:
+
+```
+del ftpy
+```
+
 ## Usage
 
 ### Method 1
