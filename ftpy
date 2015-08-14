@@ -87,7 +87,7 @@ while True:
 	if cmdList[0] == 'quit' or cmdList[0] == 'exit':
 		break;
 	elif cmdList[0] == 'ls':
-		print(ftp.dir())
+		ftp.retrlines('LIST')
 	elif cmdList[0] == 'cd':
 		try:
 			msg = ftp.cwd(cmdArgs)
