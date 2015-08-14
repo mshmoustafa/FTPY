@@ -66,6 +66,12 @@ Run the script and provide the host and username as arguments:
 $ python ftpy myhost.com myusername
 ```
 
+Log into your host by typing in your password at the prompt:
+
+```
+$ Password (blank for anonymous): 
+```
+
 ### Method 4
 
 Run the script and provide the host, username, and password as arguments:
