@@ -7,6 +7,7 @@ from ftplib import error_perm
 from getpass import getpass
 from sys import exit
 import socket
+import os
 
 # Global Variables
 ftp = FTP()
@@ -38,7 +39,7 @@ def getUserInput(msg):
 connected = False
 while not connected:
 	host = getUserInput('Host name (URL): ').strip()
-	if (host == 'quit'):
+	if (host == 'quit' or host == 'exit'):
 		exit(0)
 	if (host != ''):
 		try:
@@ -83,7 +84,7 @@ while True:
 	if len(cmdList) > 1:
 		cmdArgs = cmdList[1]
 	# parse the command
-	if cmdList[0] == 'quit':
+	if cmdList[0] == 'quit' or cmdList[0] == 'exit':
 		break;
 	elif cmdList[0] == 'ls':
 		print(ftp.dir())
