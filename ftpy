@@ -6,7 +6,7 @@ from ftplib import error_temp
 from ftplib import error_perm
 from getpass import getpass
 from sys import exit
-import os
+import socket
 
 # Global Variables
 ftp = FTP()
@@ -37,19 +37,25 @@ def getUserInput(msg):
 # Connection and Login Logic
 connected = False
 while not connected:
-	while host.strip() == '':
-		host = getUserInput('Host name (URL): ').strip()
-		if (host == 'quit'):
-			exit(0)
-	try:
-		msg = ftp.connect(host)
-	except error_temp as e:
-		print(e)
-	except error_perm as e:
-		print(e)
-	else:
-		connected = True
-		print(msg)
+	host = getUserInput('Host name (URL): ').strip()
+	if (host == 'quit'):
+		exit(0)
+	if (host != ''):
+		try:
+			msg = ftp.connect(host)
+		except error_temp as e:
+			print(e)
+		except error_perm as e:
+			print(e)
+		except socket.gaierror as e:
+			print("Address error: " + e.strerror)
+		except socket.timeout:
+			print("Connection timed out.")
+		except socket.error as e:
+			print("Socket error: " + str(e))
+		else:
+			connected = True
+			print(msg)
 loggedIn = False
 while not loggedIn:
 	user = getUserInput('Username (blank for anonymous): ').strip()
