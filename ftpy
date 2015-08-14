@@ -6,6 +6,7 @@ from ftplib import error_temp
 from ftplib import error_perm
 from getpass import getpass
 from sys import exit
+import sys
 import socket
 import os
 
@@ -15,9 +16,44 @@ host = ''
 user = ''
 password = ''
 msg = ''
+connected = False
+loggedIn = False
 file = None
 
 # Convenience Functions
+def connect(_host):
+	if (_host == 'quit' or _host == 'exit'):
+		exit(0)
+	if (_host != ''):
+		try:
+			msg = ftp.connect(_host)
+		except error_temp as e:
+			print(e)
+		except error_perm as e:
+			print(e)
+		except socket.gaierror as e:
+			print("Address error: " + e.strerror)
+		except socket.timeout:
+			print("Connection timed out.")
+		except socket.error as e:
+			print("Socket error: " + str(e))
+		else:
+			print(msg)
+			return True
+	return False
+
+def login(_user, _password):
+	try:
+		msg = ftp.login(_user, _password)
+	except error_temp as e:
+		print(e)
+	except error_perm as e:
+		print(e)
+	else:
+		print(msg)
+		return True
+	return False
+	
 def writeFileLineByLine(line):
 	file.write(line)
 	file.write('\n')
@@ -35,41 +71,45 @@ def getUserInput(msg):
 		inputString = eval("input('" + msg + "')")
 	return inputString
 
+# Parse command line arguments (if any) and try to connect
+# with credentials in command line
+if len(sys.argv) == 2:
+	host = sys.argv[1]
+	connected = connect(host)
+
+if len(sys.argv) == 3:
+	# user provided host and user
+	host = sys.argv[1]
+	user = sys.argv[2]
+	# try to connect
+	connected = connect(host)
+
+if len(sys.argv) == 4:
+	# user provided host and user
+	host = sys.argv[1]
+	user = sys.argv[2]
+	password = sys.argv[3]
+	# try to connect
+	connected = connect(host)
+	# try to login
+	if connected:
+		loggedIn = login(user, password)
+
 # Connection and Login Logic
-connected = False
 while not connected:
 	host = getUserInput('Host name (URL): ').strip()
-	if (host == 'quit' or host == 'exit'):
-		exit(0)
-	if (host != ''):
-		try:
-			msg = ftp.connect(host)
-		except error_temp as e:
-			print(e)
-		except error_perm as e:
-			print(e)
-		except socket.gaierror as e:
-			print("Address error: " + e.strerror)
-		except socket.timeout:
-			print("Connection timed out.")
-		except socket.error as e:
-			print("Socket error: " + str(e))
-		else:
-			connected = True
-			print(msg)
-loggedIn = False
+	connected = connect(host)
+
 while not loggedIn:
-	user = getUserInput('Username (blank for anonymous): ').strip()
-	password = getpass('Password (blank for anonymous): ').strip()
-	try:
-		msg = ftp.login(user, password)
-	except error_temp as e:
-		print(e)
-	except error_perm as e:
-		print(e)
-	else:
-		loggedIn = True
-		print(msg)
+	if user == '':
+		user = getUserInput('Username (blank for anonymous): ').strip()
+	if password == '':
+		password = getpass('Password (blank for anonymous): ').strip()
+	loggedIn = login(user, password)
+	# if login attempt was unsuccessful, clear username and password
+	if not loggedIn:
+		user = ''
+		password = ''
 
 # Command Loop
 while True:
