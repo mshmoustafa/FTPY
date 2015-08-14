@@ -127,9 +127,17 @@ Command: rmdir empty_dir
 
 ### Miscellaneous
 
-#### quit - Close the connection to the server
+#### exit - Close the connection to the server
 
 Nicely closes the connection to the FTP server.
+
+```
+Command: exit
+```
+
+#### quit - Close the connection to the server (same as exit)
+
+quit works the same as exit.  Use whichever one you remember first.
 
 ```
 Command: quit
